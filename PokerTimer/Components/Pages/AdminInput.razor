@@ -1,15 +1,27 @@
 ﻿@rendermode InteractiveServer
 
+<button class="btn btn-primary" @onclick="() => ChangeCurrentPlayers(-1)"> -1 </button>
+Current players: @CurrentPlayers
+<button class="btn btn-primary" @onclick="() => ChangeCurrentPlayers(+1)"> +1 </button>
+
+<br />
+
 <button class="btn btn-primary" @onclick="() => ChangeTotalPlayers(-1)"> -1 </button>
 Total players: @TotalPlayers
 <button class="btn btn-primary" @onclick="() => ChangeTotalPlayers(+1)"> +1 </button>
 
+
 @code {
     [Parameter]
     public int TotalPlayers { get; set; }
-
     [Parameter]
     public EventCallback<int> TotalPlayersChanged { get; set; }
+
+    [Parameter]
+    public int CurrentPlayers { get; set; }
+    [Parameter]
+    public EventCallback<int> CurrentPlayersChanged { get; set; }
+
 
     private async Task ChangeTotalPlayers(int delta)
     {
@@ -17,5 +29,12 @@ Total players: @TotalPlayers
         TotalPlayers = newValue;
 
         await TotalPlayersChanged.InvokeAsync(newValue);
+    }
+    private async Task ChangeCurrentPlayers(int delta)
+    {
+        var newValue = CurrentPlayers + delta;
+        CurrentPlayers = newValue;
+
+        await CurrentPlayersChanged.InvokeAsync(newValue);
     }
 }
