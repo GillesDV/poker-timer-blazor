@@ -17,19 +17,29 @@ Total players: @TotalPlayers
     [Parameter]
     public EventCallback<int> TotalPlayersChanged { get; set; }
 
+    private async Task ChangeTotalPlayers(int delta)
+    {
+        var newValue = TotalPlayers + delta;
+
+        if (newValue > CurrentPlayers && ArePlayerValuesEqual())
+        {
+            // Can't have more total players than current players -> auto-update currentPlayers, to prevent user needing to double click
+            // TODO not super happy with this yet. Kind of mixes conerns of totalPlayers and currentPlayers
+            CurrentPlayers = newValue;
+            await CurrentPlayersChanged.InvokeAsync(newValue);
+        }
+
+        TotalPlayers = newValue;
+        await TotalPlayersChanged.InvokeAsync(newValue);
+    }
+
+    bool ArePlayerValuesEqual() => CurrentPlayers == TotalPlayers;
+
     [Parameter]
     public int CurrentPlayers { get; set; }
     [Parameter]
     public EventCallback<int> CurrentPlayersChanged { get; set; }
 
-
-    private async Task ChangeTotalPlayers(int delta)
-    {
-        var newValue = TotalPlayers + delta;
-        TotalPlayers = newValue;
-
-        await TotalPlayersChanged.InvokeAsync(newValue);
-    }
     private async Task ChangeCurrentPlayers(int delta)
     {
         var newValue = CurrentPlayers + delta;
