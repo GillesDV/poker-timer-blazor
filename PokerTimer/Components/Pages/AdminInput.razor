@@ -1,18 +1,21 @@
 ﻿@rendermode InteractiveServer
 
-<h3>Game settings</h3>
-
 <button class="btn btn-primary" @onclick="() => ChangeTotalPlayers(-1)"> -1 </button>
-Total xxx players: @totalPlayers
+Total players: @TotalPlayers
 <button class="btn btn-primary" @onclick="() => ChangeTotalPlayers(+1)"> +1 </button>
 
-
 @code {
+    [Parameter]
+    public int TotalPlayers { get; set; }
 
-    private int totalPlayers = 0;
+    [Parameter]
+    public EventCallback<int> TotalPlayersChanged { get; set; }
 
-    private void ChangeTotalPlayers(int delta)
+    private async Task ChangeTotalPlayers(int delta)
     {
-        totalPlayers += delta;
+        var newValue = TotalPlayers + delta;
+        TotalPlayers = newValue;
+
+        await TotalPlayersChanged.InvokeAsync(newValue);
     }
 }

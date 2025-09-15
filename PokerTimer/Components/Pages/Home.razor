@@ -1,7 +1,15 @@
 ﻿@page "/"
+@rendermode InteractiveServer
+
 
 <PageTitle>Home</PageTitle>
 
-<PlayersLeft currentPlayers="4" totalAmountOfPlayers="6" />
+<PlayersLeft currentPlayers="4" totalAmountOfPlayers="@totalPlayers" />
 
-<AdminInput />
+<AdminInput @bind-TotalPlayers="totalPlayers" />
+
+@code {
+
+    private int totalPlayers = 0;
+
+}
