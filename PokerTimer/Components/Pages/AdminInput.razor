@@ -1,15 +1,14 @@
 ﻿@rendermode InteractiveServer
 
-<button class="btn btn-primary" @onclick="() => ChangeCurrentPlayers(-1)"> -1 </button>
+<MudButton Variant="Variant.Filled" Color="Color.Primary" @onclick="() => ChangeCurrentPlayers(-1)"> -1 </MudButton>
 Current players: @CurrentPlayers
-<button class="btn btn-primary" @onclick="() => ChangeCurrentPlayers(+1)"> +1 </button>
+<MudButton Variant="Variant.Filled" Color="Color.Primary" @onclick="() => ChangeCurrentPlayers(+1)"> +1 </MudButton>
 
 <br />
 
-<button class="btn btn-primary" @onclick="() => ChangeTotalPlayers(-1)"> -1 </button>
+<MudButton Variant="Variant.Filled" Color="Color.Primary" @onclick="() => ChangeTotalPlayers(-1)"> -1 </MudButton>
 Total players: @TotalPlayers
-<button class="btn btn-primary" @onclick="() => ChangeTotalPlayers(+1)"> +1 </button>
-
+<MudButton Variant="Variant.Filled" Color="Color.Secondary" @onclick="() => ChangeTotalPlayers(+1)"> +1 </MudButton>
 
 @code {
     [Parameter]

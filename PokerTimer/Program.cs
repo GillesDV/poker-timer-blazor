@@ -1,10 +1,13 @@
+using MudBlazor.Services;
 using PokerTimer.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+builder
+    .Services.AddRazorComponents()
+    .AddInteractiveServerComponents()
+    .Services.AddMudServices();
 
 var app = builder.Build();
 
