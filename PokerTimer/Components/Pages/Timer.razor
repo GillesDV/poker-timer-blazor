@@ -1,5 +1,4 @@
-﻿
-<p style="font-size: 2rem;">
+﻿<p style="font-size: 2rem;">
     @TimeDisplay
 </p>
 
@@ -11,10 +10,8 @@
     Stop countdown
 </MudButton>
 
-
 @code {
-    private static int totalSeconds = 60 * 20; 
-    private int remainingSeconds = totalSeconds;
+    private int remainingSeconds = 60 * 20;
     private bool isRunning = false;
     private System.Threading.Timer? timer;
 
@@ -26,7 +23,6 @@
         if (isRunning)
             return;
 
-        remainingSeconds = totalSeconds;
         isRunning = true;
 
         timer = new System.Threading.Timer(async _ =>
