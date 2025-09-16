@@ -1,0 +1,60 @@
+﻿
+<p style="font-size: 2rem;">
+    @TimeDisplay
+</p>
+
+<MudButton Variant="Variant.Filled" Color="Color.Primary" @onclick="StartCountdown" disabled="@isRunning"> 
+    Start countdown 
+</MudButton>
+
+<MudButton Variant="Variant.Filled" Color="Color.Secondary" @onclick="StopCountdown" disabled="@(!isRunning)">
+    Stop countdown
+</MudButton>
+
+
+@code {
+    private static int totalSeconds = 60 * 20; 
+    private int remainingSeconds = totalSeconds;
+    private bool isRunning = false;
+    private System.Threading.Timer? timer;
+
+    private string TimeDisplay =>
+        $"{remainingSeconds / 60:D2}:{remainingSeconds % 60:D2}";
+
+    private void StartCountdown()
+    {
+        if (isRunning)
+            return;
+
+        remainingSeconds = totalSeconds;
+        isRunning = true;
+
+        timer = new System.Threading.Timer(async _ =>
+        {
+            if (remainingSeconds > 0)
+            {
+                remainingSeconds--;
+                await InvokeAsync(StateHasChanged);
+            }
+            else
+            {
+                timer?.Dispose();
+                isRunning = false;
+                await InvokeAsync(StateHasChanged);
+            }
+        }, null, 1000, 1000);
+    }
+
+    private async Task StopCountdown()
+    {
+        if (!isRunning)
+            return;
+
+        if (timer != null)
+        {
+            timer.Dispose();
+            isRunning = false;
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+}
