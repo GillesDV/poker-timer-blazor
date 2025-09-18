@@ -3,11 +3,25 @@
 <MudPaper Class="pa-4 mud-theme-primary">
     @if (AmountOfTimesTimerHasExpired >= 0 && AmountOfTimesTimerHasExpired < allBlinds.GetLength(0))
     {
+        <div>Current blinds: </div>
         @($"{allBlinds[AmountOfTimesTimerHasExpired, 0]} / {allBlinds[AmountOfTimesTimerHasExpired, 1]}")
     }
     else
     {
         <span>Blinds not available</span>
+    }
+</MudPaper>
+
+<MudPaper Class="pa-4 mud-theme-primary">
+    @if (AmountOfTimesTimerHasExpired >= 0 && 
+    AmountOfTimesTimerHasExpired + 1 < allBlinds.GetLength(0))
+    {
+        <div>Next blinds: </div>
+        @($"{allBlinds[AmountOfTimesTimerHasExpired+1, 0]} / {allBlinds[AmountOfTimesTimerHasExpired+1, 1]}")
+    }
+    else
+    {
+        <span>Next Blinds not available</span>
     }
 </MudPaper>
 
