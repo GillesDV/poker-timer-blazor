@@ -30,7 +30,11 @@
     [Parameter]
     public int AmountOfTimesTimerHasExpired { get; init; }
 
-    //TODO move me to a separate file, for better separation of concerns? 
+    // TODO move me to a separate file, for better separation of concerns? 
+
+    // TODO can possibly make this mathematically generated instead of statically defined.
+    // Input: how many levels, how many players (+ rebuys), how long should a level / blind last
+    // ref: https://www.reddit.com/r/poker/comments/u4pxrx/is_there_a_good_formula_to_calculate_a_tournament
     int[,] allBlinds = {
         { 100, 200 }, 
         { 200, 400 }, 
