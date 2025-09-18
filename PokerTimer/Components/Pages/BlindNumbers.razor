@@ -1,7 +1,14 @@
 ﻿<h3>BlindNumbers</h3>
 
 <MudPaper Class="pa-4 mud-theme-primary">
-    @allBlinds[AmountOfTimesTimerHasExpired, 0] / @allBlinds[AmountOfTimesTimerHasExpired, 1]
+    @if (AmountOfTimesTimerHasExpired >= 0 && AmountOfTimesTimerHasExpired < allBlinds.GetLength(0))
+    {
+        @($"{allBlinds[AmountOfTimesTimerHasExpired, 0]} / {allBlinds[AmountOfTimesTimerHasExpired, 1]}")
+    }
+    else
+    {
+        <span>Blinds not available</span>
+    }
 </MudPaper>
 
 @code {
