@@ -4,13 +4,13 @@
 
 <PageTitle>Home</PageTitle>
 
-<Timer />
+<Timer OnTimerHitZero="HandleTimerHitZero" />
 
 <br />
 <br />
 <br />
 
-<BlindNumbers />
+<BlindNumbers AmountOfTimesTimerHasExpired="TimerExpirationCount" />
 
 <br />
 <br />
@@ -21,11 +21,20 @@
 <br />
 <br />
 
-<AdminInput @bind-TotalPlayers="totalPlayers" @bind-CurrentPlayers="currentPlayers" />
+<AdminInput 
+    @bind-TotalPlayers="totalPlayers" 
+    @bind-CurrentPlayers="currentPlayers"
+     />
 
 @code {
 
     private int totalPlayers = 0;
     private int currentPlayers = 0;
 
+    private int TimerExpirationCount = 0;
+
+    private void HandleTimerHitZero()
+    {
+        TimerExpirationCount++;
+    }
 }

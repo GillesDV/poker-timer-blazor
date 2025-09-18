@@ -1,10 +1,13 @@
 ﻿<h3>BlindNumbers</h3>
 
 <MudPaper Class="pa-4 mud-theme-primary">
-    @allBlinds[0, 0] / @allBlinds[0, 1]
+    @allBlinds[AmountOfTimesTimerHasExpired, 0] / @allBlinds[AmountOfTimesTimerHasExpired, 1]
 </MudPaper>
 
 @code {
+
+    [Parameter]
+    public int AmountOfTimesTimerHasExpired { get; init; }
 
     //TODO move me to a separate file, for better separation of concerns? 
     int[,] allBlinds = {

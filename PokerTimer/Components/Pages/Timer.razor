@@ -11,7 +11,10 @@
 </MudButton>
 
 @code {
-    private int remainingSeconds = 60 * 20;
+    [Parameter]
+    public EventCallback OnTimerHitZero { get; set; }
+
+    private int remainingSeconds = 5; //60 * 20;
     private bool isRunning = false;
     private System.Threading.Timer? timer;
 
@@ -37,6 +40,14 @@
                 timer?.Dispose();
                 isRunning = false;
                 await InvokeAsync(StateHasChanged);
+
+                // Timer runs on a non-blazor thread, and we need to fire this event on the Blazor thread 
+                //  to avoid an exception: "The current thread is not associated with the Dispatcher"
+                await InvokeAsync(async () =>
+                {
+                    await OnTimerHitZero.InvokeAsync();
+                });
+
             }
         }, null, 1000, 1000);
     }
