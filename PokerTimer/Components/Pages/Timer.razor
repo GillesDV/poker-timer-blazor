@@ -2,8 +2,8 @@
     @TimeDisplay
 </p>
 
-<MudButton Variant="Variant.Filled" Color="Color.Primary" @onclick="StartCountdown" disabled="@isRunning"> 
-    Start countdown 
+<MudButton Variant="Variant.Filled" Color="Color.Primary" @onclick="StartCountdown" disabled="@isRunning">
+    Start countdown
 </MudButton>
 
 <MudButton Variant="Variant.Filled" Color="Color.Secondary" @onclick="StopCountdown" disabled="@(!isRunning)">
@@ -11,57 +11,33 @@
 </MudButton>
 
 @code {
+    private string TimeDisplay =>
+        $"{remainingSeconds / 60:D2}:{remainingSeconds % 60:D2}";
+
     [Parameter]
     public EventCallback OnTimerHitZero { get; set; }
 
     private int remainingSeconds = 5; //60 * 20;
     private bool isRunning = false;
-    private System.Threading.Timer? timer;
 
-    private string TimeDisplay =>
-        $"{remainingSeconds / 60:D2}:{remainingSeconds % 60:D2}";
-
-    private void StartCountdown()
+    public async Task StartCountdown()
     {
-        if (isRunning)
-            return;
-
         isRunning = true;
 
-        timer = new System.Threading.Timer(async _ =>
+        while (remainingSeconds > 0 && isRunning)
         {
-            if (remainingSeconds > 0)
-            {
-                remainingSeconds--;
-                await InvokeAsync(StateHasChanged);
-            }
-            else
-            {
-                timer?.Dispose();
-                isRunning = false;
-                await InvokeAsync(StateHasChanged);
+            // Previously this used a Timer but that caused issues with different threads trying to fire events. This is shorter & simpler.
+            await Task.Delay(1000);
+            remainingSeconds--;
+            StateHasChanged();
+        }
 
-                // Timer runs on a non-blazor thread, and we need to fire this event on the Blazor thread 
-                //  to avoid an exception: "The current thread is not associated with the Dispatcher"
-                await InvokeAsync(async () =>
-                {
-                    await OnTimerHitZero.InvokeAsync();
-                });
-
-            }
-        }, null, 1000, 1000);
-    }
-
-    private async Task StopCountdown()
-    {
-        if (!isRunning)
-            return;
-
-        if (timer != null)
+        if (isRunning)
         {
-            timer.Dispose();
-            isRunning = false;
-            await InvokeAsync(StateHasChanged);
+            await OnTimerHitZero.InvokeAsync();
         }
     }
+
+    public void StopCountdown() => isRunning = false;
+
 }
