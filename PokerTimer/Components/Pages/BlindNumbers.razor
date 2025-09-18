@@ -1,0 +1,24 @@
+﻿<h3>BlindNumbers</h3>
+
+<MudPaper Class="pa-4 mud-theme-primary">
+    @allBlinds[0, 0] / @allBlinds[0, 1]
+</MudPaper>
+
+@code {
+
+    //TODO move me to a separate file, for better separation of concerns? 
+    int[,] allBlinds = {
+        { 100, 200 }, 
+        { 200, 400 }, 
+        { 300, 400 },
+        { 400, 800 },
+        { 500, 1_000 },
+        { 600, 1_200 },
+        { 1_000, 1_500 },
+        { 1_000, 2_000 },
+
+
+    };
+
+
+}
