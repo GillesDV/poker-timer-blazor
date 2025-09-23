@@ -68,16 +68,15 @@ Total players: @TotalPlayers
         await CurrentPlayersChanged.InvokeAsync(newValue);
     }
 
-    private int _selectedBlindTimerInSeconds;
 
     [Parameter]
     public int SelectedBlindTimerInSeconds
     {
-        get => _selectedBlindTimerInSeconds;
+        get;
         set
         {
-            if (_selectedBlindTimerInSeconds == value) return;
-            _selectedBlindTimerInSeconds = value;
+            if (field == value) return;
+            field = value;
             // forward change to parent (fire-and-forget is fine here)
             _ = SelectedBlindTimerInSecondsChanged.InvokeAsync(value);
         }

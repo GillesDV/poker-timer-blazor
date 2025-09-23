@@ -11,15 +11,23 @@
 </MudButton>
 
 @code {
-    private string TimeDisplay =>
-        $"{remainingSeconds / 60:D2}:{remainingSeconds % 60:D2}";
+    private string TimeDisplay => $"{remainingSeconds / 60:D2}:{remainingSeconds % 60:D2}";
 
     [Parameter]
     public EventCallback OnTimerHitZero { get; set; }
 
-    // TODO try to merge these two into one
-    private int SecondsToResetTo = 5; //60 * 20;
-    private int remainingSeconds = 5; //60 * 20;
+    [Parameter]
+    public int selectedBlindTimerInSeconds { 
+        get; 
+        set
+        {
+            // Field is the underlying _selectedBlindTimerInSeconds
+            // reset the countdown when the timer value changes
+            field = remainingSeconds = value;
+        }
+    }
+
+    private int remainingSeconds; 
     private bool isRunning = false;
 
     public async Task StartCountdown()
@@ -40,7 +48,7 @@
             await OnTimerHitZero.InvokeAsync();
 
             // Reset the timer
-            remainingSeconds = SecondsToResetTo;
+            remainingSeconds = selectedBlindTimerInSeconds;
             await StartCountdown();
         }
     }
