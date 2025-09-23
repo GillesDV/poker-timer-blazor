@@ -12,18 +12,26 @@ Total players: @TotalPlayers
 
 <br />
 # minute blinds:
-<MudRadioGroup @bind-value="@SelectedBlindTimerInSeconds" SelectedChanged="@OnSelectedChanged">
+<MudRadioGroup T="int" @bind-Value="SelectedBlindTimerInSeconds" >
 
-    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="@(600)">10</MudRadio>
-    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="@(900)">15</MudRadio>
-    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="@(1200)">20</MudRadio>
-    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="@(1800)">30</MudRadio>
-    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="@(2700)">45</MudRadio>
-    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="@(3600)">60</MudRadio>
-    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="@(5)">5 seconds (demo)</MudRadio>
+    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="600">10</MudRadio>
+    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="900">15</MudRadio>
+    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="1200">20</MudRadio>
+    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="1800">30</MudRadio>
+    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="2700">45</MudRadio>
+    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="3600">60</MudRadio>
+    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="5">5 seconds (demo)</MudRadio>
 </MudRadioGroup>
 
 @code {
+@using Microsoft.Extensions.Logging
+@inject ILogger<AdminInput> _logger
+
+    protected override void OnInitialized()
+    {
+        _logger.LogDebug("AdminInput Logger initialized");
+    }
+
     [Parameter]
     public int TotalPlayers { get; set; }
     [Parameter]
@@ -60,16 +68,22 @@ Total players: @TotalPlayers
         await CurrentPlayersChanged.InvokeAsync(newValue);
     }
 
+    private int _selectedBlindTimerInSeconds;
+
     [Parameter]
-    public int SelectedBlindTimerInSeconds { get; set; }
+    public int SelectedBlindTimerInSeconds
+    {
+        get => _selectedBlindTimerInSeconds;
+        set
+        {
+            if (_selectedBlindTimerInSeconds == value) return;
+            _selectedBlindTimerInSeconds = value;
+            // forward change to parent (fire-and-forget is fine here)
+            _ = SelectedBlindTimerInSecondsChanged.InvokeAsync(value);
+        }
+    }
 
     [Parameter]
     public EventCallback<int> SelectedBlindTimerInSecondsChanged { get; set; }
-
-    private async Task OnSelectedChanged(int newValue)
-    {
-        SelectedBlindTimerInSeconds = newValue;
-        await SelectedBlindTimerInSecondsChanged.InvokeAsync(newValue);
-    }
 
 }

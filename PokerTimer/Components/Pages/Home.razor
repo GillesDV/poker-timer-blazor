@@ -26,16 +26,15 @@
 <br />
 <br />
 <br />
-
-<AdminInput 
-    @bind-TotalPlayers="totalPlayers" 
-    @bind-CurrentPlayers="currentPlayers"
-     />
+<AdminInput @bind-TotalPlayers="totalPlayers"
+            @bind-CurrentPlayers="currentPlayers"
+            @bind-SelectedBlindTimerInSeconds="selectedBlindTimerInSeconds" />
 
 @code {
 
     private int totalPlayers = 0;
     private int currentPlayers = 0;
+    private int selectedBlindTimerInSeconds = 1200;
 
     private int TimerExpirationCount = 0;
 
