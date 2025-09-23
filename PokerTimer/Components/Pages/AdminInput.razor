@@ -10,6 +10,19 @@ Current players: @CurrentPlayers
 Total players: @TotalPlayers
 <MudButton Variant="Variant.Filled" Color="Color.Primary" @onclick="() => ChangeTotalPlayers(+1)"> +1 </MudButton>
 
+<br />
+# minute blinds:
+<MudRadioGroup @bind-value="@SelectedBlindTimerInSeconds" SelectedChanged="@OnSelectedChanged">
+
+    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="@(600)">10</MudRadio>
+    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="@(900)">15</MudRadio>
+    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="@(1200)">20</MudRadio>
+    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="@(1800)">30</MudRadio>
+    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="@(2700)">45</MudRadio>
+    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="@(3600)">60</MudRadio>
+    <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="@(5)">5 seconds (demo)</MudRadio>
+</MudRadioGroup>
+
 @code {
     [Parameter]
     public int TotalPlayers { get; set; }
@@ -46,4 +59,17 @@ Total players: @TotalPlayers
 
         await CurrentPlayersChanged.InvokeAsync(newValue);
     }
+
+    [Parameter]
+    public int SelectedBlindTimerInSeconds { get; set; }
+
+    [Parameter]
+    public EventCallback<int> SelectedBlindTimerInSecondsChanged { get; set; }
+
+    private async Task OnSelectedChanged(int newValue)
+    {
+        SelectedBlindTimerInSeconds = newValue;
+        await SelectedBlindTimerInSecondsChanged.InvokeAsync(newValue);
+    }
+
 }
