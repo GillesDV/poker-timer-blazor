@@ -16,3 +16,6 @@ This is a Blazor rewrite of my earlier React prototype: [poker-time](https://git
 # Tech stack:
 - .NET 8.0 (LTS) 
 - CSS library: [MudBlazor](https://mudblazor.com/)
+
+# Frontend mockup
+![Visual mockup of how the app will look, made with the help of Figma's AI tools](assets/mockup.png)
