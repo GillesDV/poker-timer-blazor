@@ -1,15 +1,16 @@
 ﻿@page "/"
 @rendermode InteractiveServer
+<PageTitle>Gilles Poker Tournament Timer</PageTitle>
 
 
-<PageTitle>Home</PageTitle>
+<h1 style="color: black">Gilles Poker Tournament Timer </h1>
+<h3 style="color: black">Level X of Y</h3>
 
 <Timer OnTimerHitZero="HandleTimerHitZero" selectedBlindTimerInSeconds="@selectedBlindTimerInSeconds" />
 
-<br />
-<br />
-<br />
+<BlindNumbers AmountOfTimesTimerHasExpired="TimerExpirationCount" />
 
+@*
 <BlindNumbers AmountOfTimesTimerHasExpired="TimerExpirationCount" />
 
 <br />
@@ -28,7 +29,7 @@
 <br />
 <AdminInput @bind-TotalPlayers="totalPlayers"
             @bind-CurrentPlayers="currentPlayers"
-            @bind-SelectedBlindTimerInSeconds="selectedBlindTimerInSeconds" />
+            @bind-SelectedBlindTimerInSeconds="selectedBlindTimerInSeconds" /> *@
 
 @code {
 
