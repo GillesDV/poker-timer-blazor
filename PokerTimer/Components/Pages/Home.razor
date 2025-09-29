@@ -10,11 +10,11 @@
 
 <BlindNumbers AmountOfTimesTimerHasExpired="TimerExpirationCount" />
 
-@*
-<BlindNumbers AmountOfTimesTimerHasExpired="TimerExpirationCount" />
+<AdminInput @bind-TotalPlayers="totalPlayers"
+            @bind-CurrentPlayers="currentPlayers"
+            @bind-SelectedBlindTimerInSeconds="selectedBlindTimerInSeconds" />
 
-<br />
-<br />
+@*
 
 <PlayersLeft currentPlayers="@currentPlayers" totalAmountOfPlayers="@totalPlayers" />
 

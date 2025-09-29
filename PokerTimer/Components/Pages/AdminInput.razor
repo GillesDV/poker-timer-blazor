@@ -1,6 +1,69 @@
 ﻿@rendermode InteractiveServer
 
-<MudButton Variant="Variant.Filled" Color="Color.Primary" @onclick="() => ChangeCurrentPlayers(-1)"> -1 </MudButton>
+<div style="font-size: 1.5em;">
+    Tournament Info
+</div>
+
+<div class="d-flex flex-grow-1 gap-4">
+    <MudPaper Class="flex-initial d-flex py-8 " Style="justify-content: center; box-shadow: none; flex-direction: column;" Width="25%">
+        <div>
+            Total players:
+        </div>
+        <span style="display:flex; flex-direction: row; justify-content: center; font-size: 1.5em;">
+            <MudButton Variant="Variant.Filled" Style="margin: 10px;" Color="Color.Transparent" @onclick="() => ChangeTotalPlayers(-1)"> -1 </MudButton>
+            <div style="margin-top: 13px;">
+                @TotalPlayers
+            </div>
+            <MudButton Variant="Variant.Filled" Style="margin: 10px;" Color="Color.Transparent" @onclick="() => ChangeTotalPlayers(+1)"> +1 </MudButton>
+        </span>        
+    </MudPaper>
+
+    <MudPaper Class="flex-initial d-flex py-8 " Style="justify-content: center; box-shadow: none; flex-direction: column;" Width="25%">
+        <div>
+            Players Remaining:
+        </div>
+        <span style="display:flex; flex-direction: row; justify-content: center; font-size: 1.5em;">
+            <MudButton Variant="Variant.Filled" Style="margin: 10px;" Color="Color.Transparent" @onclick="() => ChangeCurrentPlayers(-1)"> -1 </MudButton>
+            <div style="margin-top: 13px;">
+                @CurrentPlayers
+            </div>
+            <MudButton Variant="Variant.Filled" Style="margin: 10px;" Color="Color.Transparent" @onclick="() => ChangeCurrentPlayers(+1)"> +1 </MudButton>
+        </span>
+    </MudPaper>
+
+    <MudPaper Class="flex-initial d-flex py-8 " Style="justify-content: center; box-shadow: none; flex-direction: column;" Width="25%">
+        <div>
+            Average Stack:
+        </div>
+        <span style="display:flex; flex-direction: column; justify-content: center; font-size: 1.5em;">
+            
+            <div>
+                42K
+            </div>
+
+            <div style="font-size: 0.8em; color: darkgrey;">
+                20.4 BB
+            </div>
+        </span>
+
+    </MudPaper>
+    <MudPaper Class="flex-initial d-flex py-8 mud-theme-primary" Width="25%">
+        
+    </MudPaper>
+</div>
+
+
+@*     Players Remaining:
+    <br />
+    <MudButton Variant="Variant.Filled" Color="Color.Transparent" @onclick="() => ChangeCurrentPlayers(-1)"> -1 </MudButton>
+    <div style="font-size: 2em;">
+        @CurrentPlayers
+    </div>
+
+    <MudButton Variant="Variant.Filled" Color="Color.Transparent" @onclick="() => ChangeCurrentPlayers(+1)"> +1 </MudButton> *@
+
+
+@* <MudButton Variant="Variant.Filled" Color="Color.Primary" @onclick="() => ChangeCurrentPlayers(-1)"> -1 </MudButton>
 Current players: @CurrentPlayers
 <MudButton Variant="Variant.Filled" Color="Color.Primary" @onclick="() => ChangeCurrentPlayers(+1)"> +1 </MudButton>
 
@@ -22,7 +85,7 @@ Total players: @TotalPlayers
     <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="3600">60</MudRadio>
     <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="5">5 seconds (demo)</MudRadio>
 </MudRadioGroup>
-
+ *@
 @code {
 @using Microsoft.Extensions.Logging
 @inject ILogger<AdminInput> _logger
