@@ -23,11 +23,11 @@
             Players Remaining:
         </div>
         <span style="display:flex; flex-direction: row; justify-content: center; font-size: 1.5em;">
-            <MudButton Variant="Variant.Filled" Style="margin: 10px;" Color="Color.Transparent" @onclick="() => ChangeCurrentPlayers(-1)"> -1 </MudButton>
+            <MudButton Variant="Variant.Filled" Style="margin: 10px;" Color="Color.Transparent" @onclick="() => ChangeRemainingPlayers(-1)"> -1 </MudButton>
             <div style="margin-top: 13px;">
-                @CurrentPlayers
+                @RemainingPlayers
             </div>
-            <MudButton Variant="Variant.Filled" Style="margin: 10px;" Color="Color.Transparent" @onclick="() => ChangeCurrentPlayers(+1)"> +1 </MudButton>
+            <MudButton Variant="Variant.Filled" Style="margin: 10px;" Color="Color.Transparent" @onclick="() => ChangeRemainingPlayers(+1)"> +1 </MudButton>
         </span>
     </MudPaper>
 
@@ -104,31 +104,29 @@ Total players: @TotalPlayers
     {
         var newValue = TotalPlayers + delta;
 
-        if (newValue > CurrentPlayers && ArePlayerValuesEqual())
+        if (newValue > RemainingPlayers)
         {
-            // Can't have more total players than current players -> auto-update currentPlayers, to prevent user needing to double click
-            // TODO not super happy with this yet. Kind of mixes conerns of totalPlayers and currentPlayers
-            CurrentPlayers = newValue;
-            await CurrentPlayersChanged.InvokeAsync(newValue);
+            RemainingPlayers = RemainingPlayers + delta;
+            await RemainingPlayersChanged.InvokeAsync(RemainingPlayers);
         }
 
         TotalPlayers = newValue;
         await TotalPlayersChanged.InvokeAsync(newValue);
     }
 
-    bool ArePlayerValuesEqual() => CurrentPlayers == TotalPlayers;
+    bool ArePlayerValuesEqual() => RemainingPlayers == TotalPlayers;
 
     [Parameter]
-    public int CurrentPlayers { get; set; }
+    public int RemainingPlayers { get; set; }
     [Parameter]
-    public EventCallback<int> CurrentPlayersChanged { get; set; }
+    public EventCallback<int> RemainingPlayersChanged { get; set; }
 
-    private async Task ChangeCurrentPlayers(int delta)
+    private async Task ChangeRemainingPlayers(int delta)
     {
-        var newValue = CurrentPlayers + delta;
-        CurrentPlayers = newValue;
+        var newValue = RemainingPlayers + delta;
+        RemainingPlayers = newValue;
 
-        await CurrentPlayersChanged.InvokeAsync(newValue);
+        await RemainingPlayersChanged.InvokeAsync(newValue);
     }
 
 

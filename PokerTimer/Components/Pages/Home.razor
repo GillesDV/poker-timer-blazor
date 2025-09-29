@@ -11,7 +11,7 @@
 <BlindNumbers AmountOfTimesTimerHasExpired="TimerExpirationCount" />
 
 <AdminInput @bind-TotalPlayers="totalPlayers"
-            @bind-CurrentPlayers="currentPlayers"
+            @bind-RemainingPlayers="remainingPlayers"
             @bind-SelectedBlindTimerInSeconds="selectedBlindTimerInSeconds" />
 
 @*
@@ -34,7 +34,7 @@
 @code {
 
     private int totalPlayers = 0;
-    private int currentPlayers = 0;
+    private int remainingPlayers = 0;
     private int selectedBlindTimerInSeconds = 1200;
 
     private int TimerExpirationCount = 0;
