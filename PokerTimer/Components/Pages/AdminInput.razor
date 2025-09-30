@@ -47,8 +47,34 @@
         </span>
 
     </MudPaper>
-    <MudPaper Class="flex-initial d-flex py-8 mud-theme-primary" Width="25%">
-        
+    <MudPaper Class="flex-initial d-flex py-8" Style="justify-content: center; box-shadow: none; flex-direction: column;" Width="25%">
+        <div>
+            Timer Controls
+        </div>
+        <span style="display:flex; flex-direction: column; justify-content: center; font-size: 1.5em;">
+
+            <div>
+                <MudButton Class="rounded-lg" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.PlayArrow" 
+                            style="background-color: limegreen; color: white;">
+                    <span style="padding-top: 2px;">
+                        Start
+                    </span>
+
+                </MudButton>
+
+                <MudButton Class="rounded-lg" Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.Pause"
+                           style="background-color: white; color: limegreen; border: 2px solid limegreen;" >
+                    <span style="padding-top: 2px;">
+                        Pause
+                    </span>
+                </MudButton>
+            </div>
+
+            <div style="font-size: 0.8em; color: darkgrey; padding-top: 6px;">
+                <MudButton Class="rounded-lg" Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.VolumeUp"
+                           style="background-color: white; color: limegreen; border: 2px solid limegreen; padding-right: 5px;" />
+            </div>
+        </span>
     </MudPaper>
 </div>
 
