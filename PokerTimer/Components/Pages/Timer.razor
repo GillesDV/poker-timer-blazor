@@ -1,7 +1,30 @@
-﻿<div class="py-4 px-6 mx-4 rounded-xl" style="background-color: black; color: white; margin-top: 20px; margin-bottom: 20px;">
-    <MudText Align="Align.Center" style="font-size: 7em;">
-        @TimeDisplay
-    </MudText>
+﻿@rendermode InteractiveServer
+
+
+<div class="transition-container">
+    <div class="fade-content @(hasSelectedBlindTimer ? "visible" : "hidden")">
+        <div class="py-4 px-6 mx-4 rounded-xl" style="background-color: black; color: white; margin-top: 20px; margin-bottom: 20px;">
+            <MudText style="font-size: 7em;">
+                @TimeDisplay
+            </MudText>
+        </div>
+    </div>
+
+    <div class="fade-content @(hasSelectedBlindTimer ? "hidden" : "visible")">
+        <div class="py-4 px-6 mx-4 rounded-xl" style="background-color: lightgrey; color: black; margin-top: 20px; margin-bottom: 20px;">
+            <span style="font-size: 2em;"># minute blinds:</span>
+            
+            <MudRadioGroup T="int" class="pa-7" @bind-Value="SelectedBlindTimerInSeconds">
+                <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="600">10</MudRadio>
+                <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="900">15</MudRadio>
+                <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="1200">20</MudRadio>
+                <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="1800">30</MudRadio>
+                <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="2700">45</MudRadio>
+                <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="3600">60</MudRadio>
+                <MudRadio Color="Color.Primary" UncheckedColor="Color.Default" Value="5">5 seconds (demo)</MudRadio>
+            </MudRadioGroup>
+        </div>
+    </div>
 </div>
 
 
@@ -16,19 +39,29 @@
 @code {
     private string TimeDisplay => $"{remainingSeconds / 60:D2}:{remainingSeconds % 60:D2}";
 
+    private bool hasSelectedBlindTimer => SelectedBlindTimerInSeconds > 0;
+
+
     [Parameter]
     public EventCallback OnTimerHitZero { get; set; }
 
+    private int _selectedBlindTimerInSeconds;
+
     [Parameter]
-    public int selectedBlindTimerInSeconds { 
-        get; 
+    public int SelectedBlindTimerInSeconds
+    {
+        get => _selectedBlindTimerInSeconds;
         set
         {
-            // Field is the underlying _selectedBlindTimerInSeconds
-            // reset the countdown when the timer value changes
-            field = remainingSeconds = value;
+            if (_selectedBlindTimerInSeconds != value)
+            {
+                _selectedBlindTimerInSeconds = value;
+                remainingSeconds = value; 
+                StateHasChanged();       
+            }
         }
     }
+
 
     private int remainingSeconds; 
     private bool isRunning = false;
@@ -51,7 +84,7 @@
             await OnTimerHitZero.InvokeAsync();
 
             // Reset the timer
-            remainingSeconds = selectedBlindTimerInSeconds;
+            remainingSeconds = _selectedBlindTimerInSeconds;
             await StartCountdown();
         }
     }
