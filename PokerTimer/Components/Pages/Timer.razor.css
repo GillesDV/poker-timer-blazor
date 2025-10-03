@@ -1,0 +1,25 @@
+﻿.transition-container {
+    position: relative;
+    min-height: 200px; /* prevents layout jump */
+}
+
+.fade-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none; /* prevent clicks when hidden */
+}
+
+    .fade-content.visible {
+        opacity: 1;
+        z-index: 1;
+        pointer-events: auto;
+    }
+
+    .fade-content.hidden {
+        opacity: 0;
+        z-index: 0;
+    }

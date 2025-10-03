@@ -1,40 +1,24 @@
 ﻿@page "/"
 @rendermode InteractiveServer
+<PageTitle>Gilles Poker Tournament Timer</PageTitle>
 
 
-<PageTitle>Home</PageTitle>
+<h1 style="color: white;">Gilles Poker Tournament Timer </h1>
+<h3 style="color: #92F8CF;">Level X of Y</h3>
 
 <Timer OnTimerHitZero="HandleTimerHitZero" selectedBlindTimerInSeconds="@selectedBlindTimerInSeconds" />
 
-<br />
-<br />
-<br />
-
 <BlindNumbers AmountOfTimesTimerHasExpired="TimerExpirationCount" />
 
-<br />
-<br />
-
-<PlayersLeft currentPlayers="@currentPlayers" totalAmountOfPlayers="@totalPlayers" />
-
-<br />
-<br />
-<br />
-
-<ChipValues />
-
-<br />
-<br />
-<br />
-<AdminInput @bind-TotalPlayers="totalPlayers"
-            @bind-CurrentPlayers="currentPlayers"
+<TournamentInfo @bind-TotalPlayers="totalPlayers"
+            @bind-RemainingPlayers="remainingPlayers"
             @bind-SelectedBlindTimerInSeconds="selectedBlindTimerInSeconds" />
 
 @code {
 
     private int totalPlayers = 0;
-    private int currentPlayers = 0;
-    private int selectedBlindTimerInSeconds = 1200;
+    private int remainingPlayers = 0;
+    private int selectedBlindTimerInSeconds = 0;
 
     private int TimerExpirationCount = 0;
 
