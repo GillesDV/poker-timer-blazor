@@ -1,48 +1,40 @@
-﻿<div class="d-flex flex-grow-1 gap-4">
-    <MudPaper Class="flex-initial d-flex py-8 " Style="justify-content: center;" Width="65%" >
+﻿
+<div class="py-4 px-6 mx-4 rounded-xl" style="background-color: #F2F7F4; color: #095C2D; margin-top: 20px; margin-bottom: 20px;">
+    <MudText Align="Align.Center" style="font-size: 2.5em;">
 
-
-        <div class="py-4 px-6 mx-4 rounded-xl pa-8" style="background-color: grey; color: #095C2D; margin-top: 20px; margin-bottom: 20px;">
-            <MudText Align="Align.Center" style="font-size: 2.5em;">
-
-                @if (CanShowBlinds())
-                {
-                    <span>Current blinds</span>
-                    <MudText Align="Align.Center" style="font-size: 3em; justify-content: center;">
-                        @($"{allBlinds[AmountOfTimesTimerHasExpired, 0]} / {allBlinds[AmountOfTimesTimerHasExpired, 1]}")
-                    </MudText>
-                }
-                else
-                {
-                    <MudText Align="Align.Center" style="font-size: 2em; justify-content: center;">
-                        Blinds not available
-                    </MudText>
-                }
+        @if (CanShowBlinds())
+        {
+            <span>Current blinds</span>
+            <MudText Align="Align.Center" style="font-size: 3em; justify-content: center; color: #095C2D">
+                @($"{allBlinds[AmountOfTimesTimerHasExpired, 0]}  /  {allBlinds[AmountOfTimesTimerHasExpired, 1]}")
             </MudText>
-        </div>
-    </MudPaper>
-
-    <MudPaper Class="flex-initial d-flex py-8 " Style="justify-content: center;" Width="35%">
-
-        <div class="py-4 px-6 mx-4 rounded-xl pa-4" style="background-color: grey; color: blue; margin-top: 20px; margin-bottom: 20px;">
-            <MudText Align="Align.Center" style="font-size: 2.5em;">
-
-                @if (CanShowNextBlinds())
-                {
-                    <span>Next blinds</span>
-                    <MudText Align="Align.Center" style="font-size: 1.5em;">
-                        @($"{allBlinds[AmountOfTimesTimerHasExpired + 1, 0]} / {allBlinds[AmountOfTimesTimerHasExpired + 1, 1]}")
-                    </MudText>
-                }
-                else
-                {
-                    <MudText Align="Align.Center" style="font-size: 1em;">
-                        Next Blinds not available
-                    </MudText>
-                }
+        }
+        else
+        {
+            <MudText Align="Align.Center" style="font-size: 2em; justify-content: center;">
+                Blinds not available
             </MudText>
-        </div>
-    </MudPaper>
+        }
+    </MudText>
+
+    <MudDivider DividerType="DividerType.Middle" Style="margin-bottom: 1em;" />
+
+    <MudText Align="Align.Center" style="font-size: 2em;">
+        @if (CanShowNextBlinds())
+        {
+            <span>Next blinds</span>
+            <MudText Align="Align.Center" style="font-size: 1.5em;">
+                @($"{allBlinds[AmountOfTimesTimerHasExpired + 1, 0]} / {allBlinds[AmountOfTimesTimerHasExpired + 1, 1]}")
+            </MudText>
+        }
+        else
+        {
+            <MudText Align="Align.Center" style="font-size: 1em;">
+                Next Blinds not available
+            </MudText>
+        }
+    </MudText>
+
 </div>
 
 @code {
