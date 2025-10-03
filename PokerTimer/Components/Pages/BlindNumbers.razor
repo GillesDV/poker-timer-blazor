@@ -19,11 +19,11 @@
 
     <MudDivider DividerType="DividerType.Middle" Style="margin-bottom: 1em;" />
 
-    <MudText Align="Align.Center" style="font-size: 2em;">
+    <MudText Align="Align.Center" style="font-size: 2em; color: darkred;">
         @if (CanShowNextBlinds())
         {
             <span>Next blinds</span>
-            <MudText Align="Align.Center" style="font-size: 1.5em;">
+            <MudText Align="Align.Center" style="font-size: 1.5em; ">
                 @($"{allBlinds[AmountOfTimesTimerHasExpired + 1, 0]} / {allBlinds[AmountOfTimesTimerHasExpired + 1, 1]}")
             </MudText>
         }
