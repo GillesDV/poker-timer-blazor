@@ -14,23 +14,6 @@
             @bind-RemainingPlayers="remainingPlayers"
             @bind-SelectedBlindTimerInSeconds="selectedBlindTimerInSeconds" />
 
-@*
-
-<PlayersLeft currentPlayers="@currentPlayers" totalAmountOfPlayers="@totalPlayers" />
-
-<br />
-<br />
-<br />
-
-<ChipValues />
-
-<br />
-<br />
-<br />
-<AdminInput @bind-TotalPlayers="totalPlayers"
-            @bind-CurrentPlayers="currentPlayers"
-            @bind-SelectedBlindTimerInSeconds="selectedBlindTimerInSeconds" /> *@
-
 @code {
 
     private int totalPlayers = 0;

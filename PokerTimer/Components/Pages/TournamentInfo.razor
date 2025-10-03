@@ -96,7 +96,9 @@
 
     protected override void OnInitialized()
     {
-        _logger.LogDebug("TournamentInfo Logger initialized");
+        #if (DEBUG)
+            _logger.LogDebug("TournamentInfo Logger initialized");
+        #endif
     }
 
     [Parameter]

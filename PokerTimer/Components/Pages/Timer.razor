@@ -27,15 +27,6 @@
     </div>
 </div>
 
-
-@* <MudButton Variant="Variant.Filled" Color="Color.Primary" @onclick="StartCountdown" disabled="@isRunning">
-    Start countdown
-</MudButton>
-
-<MudButton Variant="Variant.Filled" Color="Color.Secondary" @onclick="StopCountdown" disabled="@(!isRunning)">
-    Stop countdown
-</MudButton> *@
-
 @code {
     private string TimeDisplay => $"{remainingSeconds / 60:D2}:{remainingSeconds % 60:D2}";
 
