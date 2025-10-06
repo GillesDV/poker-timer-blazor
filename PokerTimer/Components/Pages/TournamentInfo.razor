@@ -57,7 +57,8 @@
 
                 <div>
                     <MudButton Class="rounded-lg" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.PlayArrow"
-                               style="background-color: limegreen; color: white;">
+                               style="background-color: limegreen; color: white;"
+                               @onclick="() => TriggerCountdown(true)" disabled="@(CountdownIsRunning)">
                         <span style="padding-top: 2px;">
                             Start
                         </span>
@@ -65,7 +66,8 @@
                     </MudButton>
 
                     <MudButton Class="rounded-lg" Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.Pause"
-                               style="background-color: white; color: limegreen; border: 2px solid limegreen;">
+                               style="background-color: white; color: limegreen; border: 2px solid limegreen;"
+                               @onclick="() => TriggerCountdown(false)" disabled="@(!CountdownIsRunning)">
                         <span style="padding-top: 2px;">
                             Pause
                         </span>
@@ -135,21 +137,16 @@
         await RemainingPlayersChanged.InvokeAsync(newValue);
     }
 
-
     [Parameter]
-    public int SelectedBlindTimerInSeconds
+    public bool CountdownIsRunning { get; set; }
+    [Parameter]
+    public EventCallback<bool> CountdownIsRunningChanged { get; set; }
+
+    private async Task TriggerCountdown(bool newValue)
     {
-        get;
-        set
-        {
-            if (field == value) return;
-            field = value;
-            // forward change to parent (fire-and-forget is fine here)
-            _ = SelectedBlindTimerInSecondsChanged.InvokeAsync(value);
-        }
-    }
+        CountdownIsRunning = newValue;
 
-    [Parameter]
-    public EventCallback<int> SelectedBlindTimerInSecondsChanged { get; set; }
+        await CountdownIsRunningChanged.InvokeAsync(newValue);
+    }
 
 }

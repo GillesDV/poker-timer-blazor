@@ -1,6 +1,5 @@
 ﻿@rendermode InteractiveServer
 
-
 <div class="transition-container">
     <div class="fade-content @(hasSelectedBlindTimer ? "visible" : "hidden")">
         <div class="py-4 px-6 mx-4 rounded-xl" style="background-color: black; color: white; margin-top: 20px; margin-bottom: 20px;">
@@ -53,6 +52,26 @@
         }
     }
 
+    [Parameter]
+    public bool CountdownIsRunning { get; init; }
+
+    private bool _previousCountdownState;
+
+    // Called whenever a parent updates any of this component's [Parameter] values.
+    // This is used to avoid calling async methods in a property's setter, which is a big no-no clean-architecture-wise
+    protected override async Task OnParametersSetAsync()
+    {
+        if (CountdownIsRunning != _previousCountdownState)
+        {
+            _previousCountdownState = CountdownIsRunning;
+
+            if (CountdownIsRunning)
+                await StartCountdown();
+            else
+                StopCountdown();
+        }
+    }
+
 
     private int remainingSeconds; 
     private bool isRunning = false;
@@ -60,6 +79,11 @@
     public async Task StartCountdown()
     {
         isRunning = true;
+
+        if (!hasSelectedBlindTimer)
+        {
+            return;
+        }
 
         while (remainingSeconds > 0 && isRunning)
         {
