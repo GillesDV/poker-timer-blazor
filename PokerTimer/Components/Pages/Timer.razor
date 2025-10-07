@@ -90,9 +90,9 @@
         while (remainingSeconds > 0 && isRunning)
         {
             // Previously this used a Timer but that caused issues with different threads trying to fire events. This is shorter & simpler.
-            await Task.Delay(1000);
             remainingSeconds--;
             StateHasChanged();
+            await Task.Delay(1000);
         }
 
         if (isRunning)
