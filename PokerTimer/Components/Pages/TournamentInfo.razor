@@ -58,7 +58,7 @@
                 <div>
                     <MudButton Class="rounded-lg" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.PlayArrow"
                                style="background-color: limegreen; color: white;"
-                               @onclick="() => TriggerCountdown(true)" disabled="@(CountdownIsRunning)">
+                               @onclick="() => TriggerCountdown(true)" disabled="@(IsStartButtonDisabled())">
                         <span style="padding-top: 2px;">
                             Start
                         </span>
@@ -101,6 +101,16 @@
         #if (DEBUG)
             _logger.LogDebug("TournamentInfo Logger initialized");
         #endif
+    }
+
+    public bool IsStartButtonDisabled()
+    {
+        if (!BlindTimerHasBeenSelected)
+        {
+            return true;
+        }
+
+        return CountdownIsRunning;
     }
 
     [Parameter]
@@ -148,5 +158,8 @@
 
         await CountdownIsRunningChanged.InvokeAsync(newValue);
     }
+
+    [Parameter] 
+    public bool BlindTimerHasBeenSelected { get; init; }
 
 }

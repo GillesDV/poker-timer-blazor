@@ -6,13 +6,15 @@
 <h1 style="color: white;">Gilles Poker Tournament Timer </h1>
 <h3 style="color: #92F8CF;">Level X of Y</h3>
 
-<Timer OnTimerHitZero="HandleTimerHitZero" CountdownIsRunning="@countdownIsRunning" />
+<Timer OnTimerHitZero="HandleTimerHitZero" CountdownIsRunning="@countdownIsRunning"
+       @bind-SelectedBlindTimerInSeconds="selectedBlindTimerInSeconds" />
 
 <BlindNumbers AmountOfTimesTimerHasExpired="TimerExpirationCount" />
 
 <TournamentInfo @bind-TotalPlayers="totalPlayers"
             @bind-RemainingPlayers="remainingPlayers"
-                @bind-CountdownIsRunning="countdownIsRunning" />
+                @bind-CountdownIsRunning="countdownIsRunning"
+                BlindTimerHasBeenSelected="blindTimerHasBeenSelected" />
 
 @code {
 
@@ -26,4 +28,8 @@
     {
         TimerExpirationCount++;
     }
+
+    private int selectedBlindTimerInSeconds;
+    private bool blindTimerHasBeenSelected => selectedBlindTimerInSeconds > 0;
+    
 }

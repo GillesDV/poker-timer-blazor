@@ -35,22 +35,24 @@
     [Parameter]
     public EventCallback OnTimerHitZero { get; set; }
 
-    private int _selectedBlindTimerInSeconds;
-
     [Parameter]
     public int SelectedBlindTimerInSeconds
     {
-        get => _selectedBlindTimerInSeconds;
+        get => field;
         set
         {
-            if (_selectedBlindTimerInSeconds != value)
+            if (field != value)
             {
-                _selectedBlindTimerInSeconds = value;
+                field = value;
                 remainingSeconds = value; 
+                SelectedBlindTimerInSecondsChanged.InvokeAsync(value);
                 StateHasChanged();       
             }
         }
     }
+
+    [Parameter]
+    public EventCallback<int> SelectedBlindTimerInSecondsChanged { get; set; }
 
     [Parameter]
     public bool CountdownIsRunning { get; init; }
@@ -99,7 +101,7 @@
             await OnTimerHitZero.InvokeAsync();
 
             // Reset the timer
-            remainingSeconds = _selectedBlindTimerInSeconds;
+            remainingSeconds = SelectedBlindTimerInSeconds;
             await StartCountdown();
         }
     }
