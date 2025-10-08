@@ -30,7 +30,6 @@ Deployed via Azure (Github integration), auto-deploys when master is updated ðŸš
 # TODO:
 - Clean up the style="..." in the components and use a CSS file per component or across multiple comps
 - Add functionality for the remainder of the TournamentInfo tab: average stack, turning sound on/off when timer expires, showing a component with default chip values. 
-- More 
 
 # Initial Frontend mockup
 ![Visual mockup of how the app will look, made with the help of Figma's AI tools](assets/mockup.png)

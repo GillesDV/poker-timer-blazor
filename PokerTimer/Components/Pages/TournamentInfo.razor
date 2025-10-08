@@ -40,7 +40,7 @@
             <span style="display:flex; flex-direction: column; justify-content: center; font-size: 1.5em;">
 
                 <div>
-                    42K
+                    @DisplayAverageStack()
                 </div>
 
                 <div style="font-size: 0.8em; color: darkgrey;">
@@ -79,7 +79,8 @@
                                style="background-color: white; border: 2px solid grey; padding-right: 5px;" />
 
                     <MudButton Class="rounded-lg" Variant="Variant.Outlined"
-                               style="background-color: white; border: 2px solid grey;">
+                               style="background-color: white; border: 2px solid grey;"
+                               disabled="@(true)" >
                         Show Chip Values
                     </MudButton>
                 </div>
@@ -101,6 +102,17 @@
         #if (DEBUG)
             _logger.LogDebug("TournamentInfo Logger initialized");
         #endif
+    }
+
+    public string DisplayAverageStack()
+    {
+        if (TotalPlayers == 0)
+        {
+            return "0K";
+        }
+        const int defaultStartingStack = 100_000;
+        var averageStack = (TotalPlayers * defaultStartingStack) / RemainingPlayers;
+        return $"{averageStack / 1000}K";
     }
 
     public bool IsStartButtonDisabled()
