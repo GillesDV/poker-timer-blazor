@@ -1,4 +1,5 @@
-﻿
+﻿@using PokerTimer.Domain.Constants
+
 <div class="py-4 px-6 mx-4 rounded-xl" style="background-color: #F2F7F4; color: #095C2D; margin-top: 20px; margin-bottom: 20px;">
     <MudText Align="Align.Center" style="font-size: 2.5em;">
 
@@ -6,7 +7,7 @@
         {
             <span>Current blinds</span>
             <MudText Align="Align.Center" style="font-size: 3em; justify-content: center; color: #095C2D">
-                @($"{allBlinds[AmountOfTimesTimerHasExpired, 0]}  /  {allBlinds[AmountOfTimesTimerHasExpired, 1]}")
+                @($"{BlindValues.AllBlinds[AmountOfTimesTimerHasExpired, 0]}  /  {BlindValues.AllBlinds[AmountOfTimesTimerHasExpired, 1]}")
             </MudText>
         }
         else
@@ -24,7 +25,7 @@
         {
             <span>Next blinds</span>
             <MudText Align="Align.Center" style="font-size: 1.5em; ">
-                @($"{allBlinds[AmountOfTimesTimerHasExpired + 1, 0]} / {allBlinds[AmountOfTimesTimerHasExpired + 1, 1]}")
+                @($"{BlindValues.AllBlinds[AmountOfTimesTimerHasExpired + 1, 0]} / {BlindValues.AllBlinds[AmountOfTimesTimerHasExpired + 1, 1]}")
             </MudText>
         }
         else
@@ -44,31 +45,12 @@
 
     private bool CanShowBlinds()
     {
-        return AmountOfTimesTimerHasExpired >= 0 && AmountOfTimesTimerHasExpired < allBlinds.GetLength(0);
+        return AmountOfTimesTimerHasExpired >= 0 && AmountOfTimesTimerHasExpired < BlindValues.AllBlinds.GetLength(0);
     }
 
     private bool CanShowNextBlinds()
     {
-        return AmountOfTimesTimerHasExpired >= 0 && AmountOfTimesTimerHasExpired + 1 < allBlinds.GetLength(0);
+        return AmountOfTimesTimerHasExpired >= 0 && AmountOfTimesTimerHasExpired + 1 < BlindValues.AllBlinds.GetLength(0);
     }
-
-    // TODO move me to a separate file, for better separation of concerns?
-
-    // TODO can possibly make this mathematically generated instead of statically defined.
-    // Input: how many levels, how many players (+ rebuys), how long should a level / blind last
-    // ref: https://www.reddit.com/r/poker/comments/u4pxrx/is_there_a_good_formula_to_calculate_a_tournament
-    int[,] allBlinds = {
-        { 100, 200 },
-        { 200, 400 },
-        { 300, 400 },
-        { 400, 800 },
-        { 500, 1_000 },
-        { 600, 1_200 },
-        { 1_000, 1_500 },
-        { 1_000, 2_000 },
-
-
-    };
-
 
 }

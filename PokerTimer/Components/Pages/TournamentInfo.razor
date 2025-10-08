@@ -44,7 +44,7 @@
                 </div>
 
                 <div style="font-size: 0.8em; color: darkgrey;">
-                    20.4 BB
+                    @DisplayAmountOfBigBlind()
                 </div>
             </span>
 
@@ -95,6 +95,7 @@
 
 @code {
 @using Microsoft.Extensions.Logging
+@using PokerTimer.Domain.Constants
 @inject ILogger<TournamentInfo> _logger
 
     protected override void OnInitialized()
@@ -110,9 +111,29 @@
         {
             return "0K";
         }
-        const int defaultStartingStack = 100_000;
-        var averageStack = (TotalPlayers * defaultStartingStack) / RemainingPlayers;
+        var averageStack = getAverageStack();
         return $"{averageStack / 1000}K";
+    }
+
+    private int getAverageStack()
+    {
+        if (RemainingPlayers == 0)
+        {
+            return 0;
+        }
+        const int defaultStartingStack = 100_000;
+        return (TotalPlayers * defaultStartingStack) / RemainingPlayers;
+    }
+
+    public string DisplayAmountOfBigBlind()
+    {
+        if (TotalPlayers == 0)
+            {
+                return "0 BB";
+        }
+        var averageStack = getAverageStack();
+        var currentBigBlind = BlindValues.AllBlinds[TimerExpirationCount, 1];
+        return $"{averageStack / currentBigBlind:0.0} BB";
     }
 
     public bool IsStartButtonDisabled()
@@ -174,4 +195,6 @@
     [Parameter] 
     public bool BlindTimerHasBeenSelected { get; init; }
 
+    [Parameter]
+    public int TimerExpirationCount { get; init; }
 }

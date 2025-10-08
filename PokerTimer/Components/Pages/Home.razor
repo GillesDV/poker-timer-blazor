@@ -4,17 +4,19 @@
 
 
 <h1 style="color: white;">Poker Tournament Timer </h1>
-<h3 style="color: #92F8CF;">Level @(TimerExpirationCount + 1) of 8</h3>
+<h3 style="color: #92F8CF;">Level @(timerExpirationCount + 1) of 8</h3>
 
 <Timer OnTimerHitZero="HandleTimerHitZero" CountdownIsRunning="@countdownIsRunning"
        @bind-SelectedBlindTimerInSeconds="selectedBlindTimerInSeconds" />
 
-<BlindNumbers AmountOfTimesTimerHasExpired="TimerExpirationCount" />
+<BlindNumbers AmountOfTimesTimerHasExpired="timerExpirationCount" />
 
 <TournamentInfo @bind-TotalPlayers="totalPlayers"
             @bind-RemainingPlayers="remainingPlayers"
                 @bind-CountdownIsRunning="countdownIsRunning"
-                BlindTimerHasBeenSelected="blindTimerHasBeenSelected" />
+                BlindTimerHasBeenSelected="blindTimerHasBeenSelected"
+                TimerExpirationCount="timerExpirationCount"
+                />
 
 @code {
 
@@ -22,11 +24,11 @@
     private int remainingPlayers = 0;
     private bool countdownIsRunning = false;
 
-    private int TimerExpirationCount = 0;
+    private int timerExpirationCount = 0;
 
     private void HandleTimerHitZero()
     {
-        TimerExpirationCount++;
+        timerExpirationCount++;
     }
 
     private int selectedBlindTimerInSeconds;
