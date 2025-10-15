@@ -80,8 +80,8 @@
 
                     <MudButton Class="rounded-lg" Variant="Variant.Outlined"
                                style="background-color: white; border: 2px solid grey;"
-                               disabled="@(true)" >
-                        Show Chip Values
+                               @onclick="() => GoToNextLevel()" disabled="@(IsSkipLevelButtonDisabled())">
+                        Next level
                     </MudButton>
                 </div>
             </span>
@@ -143,6 +143,26 @@
             return true;
         }
 
+        if (BlindValues.AllBlinds.GetLength(0) <= TimerExpirationCount)
+        {
+            return true;
+        }
+
+        return CountdownIsRunning;
+    }
+
+    public bool IsSkipLevelButtonDisabled()
+    {
+        if (!BlindTimerHasBeenSelected)
+        {
+            return true;
+        }
+
+        if (BlindValues.AllBlinds.GetLength(0) <= (TimerExpirationCount + 1))
+        {
+            return true;
+        }
+
         return CountdownIsRunning;
     }
 
@@ -191,6 +211,14 @@
 
         await CountdownIsRunningChanged.InvokeAsync(newValue);
     }
+
+    private async Task GoToNextLevel()
+    {
+        await OnNextLevelRequested.InvokeAsync();
+    }
+
+    [Parameter]
+    public EventCallback OnNextLevelRequested { get; set; }
 
     [Parameter] 
     public bool BlindTimerHasBeenSelected { get; init; }

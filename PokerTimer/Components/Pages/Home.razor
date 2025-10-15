@@ -17,7 +17,7 @@
                 @bind-CountdownIsRunning="countdownIsRunning"
                 BlindTimerHasBeenSelected="blindTimerHasBeenSelected"
                 TimerExpirationCount="timerExpirationCount"
-                />
+                OnNextLevelRequested="HandleSkipLevel" />
 
 @code {
 
@@ -30,6 +30,11 @@
     private void HandleTimerHitZero()
     {
         timerExpirationCount++;
+    }
+
+    private void HandleSkipLevel()
+    {
+        HandleTimerHitZero();
     }
 
     private int selectedBlindTimerInSeconds;
