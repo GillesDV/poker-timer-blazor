@@ -1,10 +1,11 @@
 ﻿@page "/"
+@using PokerTimer.Domain.Constants
 @rendermode InteractiveServer
 <PageTitle>Gilles Poker Tournament Timer</PageTitle>
 
 
 <h1 style="color: white;">Poker Tournament Timer </h1>
-<h3 style="color: #92F8CF;">Level @(timerExpirationCount + 1) of 8</h3>
+<h3 style="color: #92F8CF;">Level @(timerExpirationCount + 1) of @BlindValues.AllBlinds.GetLength(0) </h3>
 
 <Timer OnTimerHitZero="HandleTimerHitZero" CountdownIsRunning="@countdownIsRunning"
        @bind-SelectedBlindTimerInSeconds="selectedBlindTimerInSeconds" />
