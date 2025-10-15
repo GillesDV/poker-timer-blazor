@@ -54,36 +54,46 @@
                 Timer Controls
             </div>
             <span style="display:flex; flex-direction: column; justify-content: center; font-size: 1.5em;">
+                @if (BlindTimerHasBeenSelected)
+                {
+                    <div>
+                        <MudButton Class="rounded-lg" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.PlayArrow"
+                                   style="background-color: limegreen; color: white;"
+                                   @onclick="() => TriggerCountdown(true)" disabled="@(IsStartButtonDisabled())">
+                            <span style="padding-top: 2px;">
+                                Start
+                            </span>
 
-                <div>
-                    <MudButton Class="rounded-lg" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.PlayArrow"
-                               style="background-color: limegreen; color: white;"
-                               @onclick="() => TriggerCountdown(true)" disabled="@(IsStartButtonDisabled())">
-                        <span style="padding-top: 2px;">
-                            Start
-                        </span>
+                        </MudButton>
 
-                    </MudButton>
+                        <MudButton Class="rounded-lg" Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.Pause"
+                                   style="background-color: white; color: limegreen; border: 2px solid limegreen;"
+                                   @onclick="() => TriggerCountdown(false)" disabled="@(!CountdownIsRunning)">
+                            <span style="padding-top: 2px;">
+                                Pause
+                            </span>
+                        </MudButton>
+                    </div>
 
-                    <MudButton Class="rounded-lg" Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.Pause"
-                               style="background-color: white; color: limegreen; border: 2px solid limegreen;"
-                               @onclick="() => TriggerCountdown(false)" disabled="@(!CountdownIsRunning)">
-                        <span style="padding-top: 2px;">
-                            Pause
-                        </span>
-                    </MudButton>
-                </div>
+                    <div style="font-size: 0.8em; color: darkgrey; padding-top: 6px;">
+                        <MudButton Class="rounded-lg" Variant="Variant.Outlined" IconColor="Color.Dark" StartIcon="@Icons.Material.Filled.VolumeUp"
+                                   style="background-color: white; border: 2px solid grey; padding-right: 5px;" />
 
-                <div style="font-size: 0.8em; color: darkgrey; padding-top: 6px;">
-                    <MudButton Class="rounded-lg" Variant="Variant.Outlined" IconColor="Color.Dark" StartIcon="@Icons.Material.Filled.VolumeUp"
-                               style="background-color: white; border: 2px solid grey; padding-right: 5px;" />
+                        <MudButton Class="rounded-lg" Variant="Variant.Outlined"
+                                   style="background-color: white; border: 2px solid grey;"
+                                   @onclick="() => GoToNextLevel()" disabled="@(IsSkipLevelButtonDisabled())">
+                            Next level
+                        </MudButton>
+                    </div>
+                }
+                else
+                {
+                    <div style="color: indianred;">
+                        Please select # minutes per blind level first
+                    </div>
+                }
 
-                    <MudButton Class="rounded-lg" Variant="Variant.Outlined"
-                               style="background-color: white; border: 2px solid grey;"
-                               @onclick="() => GoToNextLevel()" disabled="@(IsSkipLevelButtonDisabled())">
-                        Next level
-                    </MudButton>
-                </div>
+               
             </span>
         </MudPaper>
     </div>
