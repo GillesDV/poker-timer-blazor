@@ -1,4 +1,4 @@
-# what is this? 
+﻿# what is this? 
 
 A timer web application that keeps track of small/big blinds during a poker game. Intended to be projected next to or near the game.
 
@@ -8,6 +8,10 @@ This is a Blazor rewrite of my earlier React prototype: [poker-time](https://git
 [https://gilles-poker-timer.azurewebsites.net/](https://gilles-poker-timer.azurewebsites.net/)  
 Deployed via Azure (Github integration), auto-deploys when master is updated 🚀
 
+# Running locally
+- `dotnet restore`
+- `dotnet run`
+
 # Features
 - Current small & big blind shown
 - Next small & big blind shown
@@ -16,7 +20,7 @@ Deployed via Azure (Github integration), auto-deploys when master is updated �
 - A view with Tournament info displaying information such as: total players, current players, buttons to start & pause timer
 
 # Tech stack:
-- .NET 8.0 (LTS) 
+- .NET 10.0 (LTS) 
 - Blazor Server
 - CSS library: [MudBlazor](https://mudblazor.com/)
 
