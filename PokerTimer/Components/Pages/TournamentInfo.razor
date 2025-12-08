@@ -76,8 +76,13 @@
                     </div>
 
                     <div style="font-size: 0.8em; color: darkgrey; padding-top: 6px;">
-                        <MudButton Class="rounded-lg" Variant="Variant.Outlined" IconColor="Color.Dark" StartIcon="@Icons.Material.Filled.VolumeUp"
-                                   style="background-color: white; border: 2px solid grey; padding-right: 5px;" />
+                        <MudButton Class="rounded-lg" Variant="Variant.Outlined"
+                                   Color="@(SoundEnabled ? Color.Success : Color.Default)"
+                                   StartIcon="@(SoundEnabled ? Icons.Material.Filled.VolumeUp : Icons.Material.Filled.VolumeOff)"
+                                   style="background-color: white; border: 2px solid grey; padding-right: 5px;"
+                                   @onclick="ToggleSound">
+                            
+                        </MudButton>
 
                         <MudButton Class="rounded-lg" Variant="Variant.Outlined"
                                    style="background-color: white; border: 2px solid grey;"
@@ -227,8 +232,19 @@
         await OnNextLevelRequested.InvokeAsync();
     }
 
+    private async Task ToggleSound()
+    {
+        SoundEnabled = !SoundEnabled;
+        await SoundEnabledChanged.InvokeAsync(SoundEnabled);
+    }
+
     [Parameter]
     public EventCallback OnNextLevelRequested { get; set; }
+
+    [Parameter]
+    public bool SoundEnabled { get; set; }
+    [Parameter]
+    public EventCallback<bool> SoundEnabledChanged { get; set; }
 
     [Parameter] 
     public bool BlindTimerHasBeenSelected { get; init; }
