@@ -3,7 +3,7 @@ window.pokerTimer = window.pokerTimer || {};
     const audio = new Audio('/soft-beep-sound.wav');
     audio.preload = 'auto';
 
-    window.pokerTimer.playBeep = function () {
+    window.pokerTimer.playNotificationSound = function () {
         try {
             audio.currentTime = 0;
             const playPromise = audio.play();
